@@ -67,7 +67,7 @@ export function LoginScreen(props: LoginScreenProps) {
               value={props.signupEmail}
               onChange={props.onSignupEmailChange}
               type="email"
-              placeholder="seuemail@337"
+              placeholder="Digite seu e-mail"
             />
             <Select
               label="Qual congregação"
