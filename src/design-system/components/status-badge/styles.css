@@ -1,0 +1,24 @@
+.ds-status-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.ds-status-badge--pendente {
+  background: var(--color-pending-soft);
+  color: var(--color-pending);
+}
+
+.ds-status-badge--aceito {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.ds-status-badge--recusado {
+  background: var(--color-rejected-soft);
+  color: var(--color-rejected);
+}

@@ -1,0 +1,39 @@
+.ds-multi-select {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-multi-select .ds-select .ds-field__label {
+  font-size: 0.8rem;
+}
+
+.ds-multi-select__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ds-multi-select__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--color-card-border);
+  background: var(--color-primary-tint);
+  color: var(--color-primary-ink);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.ds-multi-select__remove {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: inline-flex;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ds-multi-select__remove .material-symbols-rounded {
+  font-size: 0.95rem;
+}

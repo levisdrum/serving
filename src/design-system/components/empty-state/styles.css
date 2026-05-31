@@ -1,0 +1,19 @@
+.ds-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  color: var(--color-text-soft);
+  text-align: center;
+}
+
+.ds-empty-state .material-symbols-rounded {
+  font-size: 2.5rem;
+  opacity: 0.45;
+}
+
+.ds-empty-state p {
+  font-size: 0.9rem;
+  margin: 0;
+}

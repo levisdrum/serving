@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "name": "runtime-bootstrap",
+      "run": [
+        "echo '[runtime] carregar AGENTS.md (hot)'",
+        "echo '[runtime] skills warm/cold sob demanda'"
+      ]
+    },
+    {
+      "event": "PreToolUse",
+      "name": "kickoff-guard",
+      "run": [
+        "echo '[guard] antes de criar artefatos de implementação, confirmar kickoff'"
+      ]
+    },
+    {
+      "event": "PostToolUse",
+      "name": "qa-reminder",
+      "run": [
+        "echo '[qa] lembrar execução do qa-gate após mudanças significativas'"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,391 @@
+.admin-panel {
+  display: grid;
+  gap: var(--space-4);
+}
+.admin-toast {  position: fixed;  bottom: 1.25rem;  left: 50%;  transform: translateX(-50%);  background: var(--color-toast-bg);  color: var(--color-card-bg);  padding: 0.6rem 1.1rem;  border-radius: var(--radius-pill);  font-size: var(--font-size-body);  font-weight: 500;  display: flex;  align-items: center;  gap: 0.45rem;  box-shadow: var(--shadow-toast);  z-index: var(--z-toast);  white-space: nowrap;  pointer-events: none;  animation: toast-in 0.2s ease;}
+.admin-toast .material-symbols-rounded {  font-size: var(--font-size-xl);  color: var(--color-toast-success);}
+@keyframes toast-in {  from { opacity: 0; transform: translateX(-50%) translateY(var(--size-offset-8)); }  to   { opacity: 1; transform: translateX(-50%) translateY(0); }}
+
+.admin-summary-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(var(--size-grid-min), 1fr));
+}
+
+@media (max-width: 639px) {
+  .admin-summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.admin-kpi {
+  border: var(--size-border-thin) solid var(--color-card-border);
+  border-radius: var(--radius-control);
+  background: var(--color-card-bg);
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--size-border-accent);
+    background: var(--color-primary);
+    border-radius: var(--radius-control) var(--radius-control) 0 0;
+  }
+}
+
+.admin-kpi strong {
+  font-size: var(--font-size-2xl);
+}
+
+.admin-kpi span {
+  font-size: var(--font-size-md);
+  color: var(--color-text-soft);
+}
+
+.admin-kpi__icon {
+  font-size: var(--font-size-3xl);
+  color: var(--color-primary);
+  line-height: var(--line-height-tight);
+}
+
+.admin-kpi--warning {
+  &::before { background: var(--color-pending-strong); }
+  & .admin-kpi__icon { color: var(--color-pending-strong); }
+  & strong { color: var(--color-pending); }
+}
+
+.admin-kpi--success {
+  &::before { background: var(--color-success-strong); }
+  & .admin-kpi__icon { color: var(--color-success-strong); }
+  & strong { color: var(--color-success); }
+}
+
+.admin-kpi--danger {
+  &::before { background: var(--color-rejected-strong); }
+  & .admin-kpi__icon { color: var(--color-rejected-strong); }
+  & strong { color: var(--color-rejected); }
+}
+
+.admin-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  color: var(--color-text-soft);
+  text-align: center;
+}
+
+.admin-empty-state .material-symbols-rounded {
+  font-size: var(--font-size-icon-xl);
+  opacity: 0.45;
+}
+
+.admin-empty-state p {
+  font-size: var(--font-size-body);
+}
+
+.admin-empty-state__action {
+  width: auto;
+  justify-self: center;
+}
+
+.admin-empty-state__action .material-symbols-rounded {
+  font-size: var(--font-size-lg);
+}
+
+.admin-warning {
+  border: var(--size-border-thin) solid var(--color-warning-border);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-radius: var(--radius-control);
+  padding: 0.5rem 0.65rem;
+  font-size: var(--font-size-md);
+}
+
+.admin-members-table {
+  border: var(--size-border-thin) solid var(--color-card-border);
+  background: var(--color-card-bg);
+  width: 100%;
+  min-width: 980px;
+}
+
+/* Tabela de funções por membro na escala */
+.admin-member-roles-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body);
+
+  & caption {
+    text-align: left;
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-label);
+    padding-bottom: var(--space-2);
+  }
+
+  & th {
+    text-align: left;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-label);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: var(--size-border-thin) solid var(--color-card-border);
+  }
+
+  & td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: var(--size-border-thin) solid var(--color-card-border);
+    vertical-align: middle;
+  }
+
+  & tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  & tbody tr:hover td {
+    background: color-mix(in srgb, var(--color-primary) 4%, transparent);
+  }
+}
+
+/* Linha de escalado no detalhe */
+.admin-assignment-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-assignment-name {
+  font-weight: 600;
+  font-size: var(--font-size-body);
+}
+
+.admin-assignment-status {
+  white-space: nowrap;
+}
+
+/* Upcoming scales list */
+.admin-upcoming-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.admin-upcoming-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--size-border-thin) solid var(--color-card-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.admin-upcoming-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-offset-2);
+  min-width: 0;
+
+  & strong {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-strong);
+  }
+}
+
+.admin-upcoming-date {
+  font-size: var(--font-size-md);
+  color: var(--color-text-soft);
+}
+
+.admin-upcoming-congregacao {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Songs table */
+.admin-songs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body);
+
+  & th {
+    text-align: left;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-soft);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: var(--size-border-thin) solid var(--color-card-border);
+  }
+
+  & td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: var(--size-border-thin) solid var(--color-card-border);
+    vertical-align: middle;
+
+    & strong {
+      display: block;
+      font-size: var(--font-size-body);
+    }
+  }
+
+  & tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  & tbody tr:hover td {
+    background: var(--color-gray-50);
+  }
+}
+
+.admin-song-tag {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  background: var(--color-primary-tint-2);
+  color: var(--color-primary-ink);
+  padding: var(--size-offset-2) var(--space-3);
+  border-radius: var(--radius-pill);
+}
+
+.admin-song-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+  margin-left: var(--space-2);
+  vertical-align: middle;
+
+  & .material-symbols-rounded {
+    font-size: var(--font-size-lg);
+  }
+
+  &:hover { opacity: 0.75; }
+}
+
+.admin-song-obs {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-soft);
+  margin-top: var(--size-offset-2);
+}
+
+.admin-empty-msg {
+  font-size: var(--font-size-body);
+  color: var(--color-text-soft);
+  padding: var(--space-3) 0;
+}
+
+/* Generic admin list (teams, roles, assignments) */
+.admin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.admin-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--size-border-thin) solid var(--color-card-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.admin-list-item__label {
+  font-size: var(--font-size-body);
+  color: var(--color-text-strong);
+}
+
+@media (max-width: 639px) {
+  .admin-members-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.admin-members-table [role='rowgroup'] [role='row'] {
+  border-bottom: var(--size-border-thin) solid var(--color-card-border);
+}
+
+.admin-members-table [role='columnheader'] {
+  text-align: left;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  padding: 0.6rem;
+}
+
+.admin-members-table [role='gridcell'] {
+  padding: 0.55rem;
+  vertical-align: top;
+}
+
+.admin-members-table .ds-field {
+  min-width: 150px;
+}
+
+.admin-members-table .ds-field__label {
+  display: none;
+}
+
+/* Song form em grid 2 colunas */
+.admin-song-form {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.admin-song-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-song-form__row--title {
+  grid-template-columns: 2fr 1fr;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-members-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-3);
+}

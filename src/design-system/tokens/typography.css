@@ -1,0 +1,17 @@
+:root {
+  --font-family-brand: wfont_285ce0_d5da3aa88c1d45da80475ee426145923, wf_d5da3aa88c1d45da80475ee42, orig_druk_text_medium, sans-serif;
+  --font-size-2xs: 0.67rem;
+  --font-size-xs: 0.72rem;
+  --font-size-sm: 0.78rem;
+  --font-size-md: 0.85rem;
+  --font-size-body: 0.9rem;
+  --font-size-lg: 0.92rem;
+  --font-size-xl: 1.1rem;
+  --font-size-2xl: 1.2rem;
+  --font-size-3xl: 1.3rem;
+  --font-size-4xl: 1.55rem;
+  --font-size-icon-xl: 2.5rem;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.35;
+  --line-height-relaxed: 1.6;
+}

@@ -1,0 +1,48 @@
+.ds-date-picker { display: grid; gap: 0.35rem; }
+.ds-date-picker__group {
+  height: var(--control-height);
+  border: 1px solid var(--color-input-border);
+  background: var(--color-input-bg);
+  color: var(--color-input-text);
+  box-shadow: var(--shadow-1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+.ds-date-picker__input { display: flex; padding: 0 0.75rem; }
+.ds-date-picker__segment[data-placeholder='true'] { color: var(--color-muted); }
+.ds-date-picker__button {
+  border: 0;
+  background: transparent;
+  color: var(--color-text-strong);
+  padding: 0 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.ds-date-picker__popover {
+  border: 1px solid var(--color-card-border);
+  background: var(--color-card-bg);
+  box-shadow: var(--shadow-2);
+  padding: 0.5rem;
+}
+.ds-date-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+.ds-date-picker__heading { font-size: 0.9rem; }
+.ds-date-picker__nav { border: 0; background: transparent; cursor: pointer; }
+.ds-date-picker__cell {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ds-date-picker__cell[data-selected='true'] {
+  background: var(--color-primary-tint-2);
+  color: var(--color-primary-ink);
+}
