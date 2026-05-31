@@ -37,8 +37,8 @@ export function ProfilePanel(props: ProfilePanelProps) {
     <article className="card">
       <h2>Editar perfil</h2>
       <AvatarField label="Avatar" value={props.profileFotoUrlDraft} onChange={props.onProfileFotoUrlChange} />
-      <TextField label="Nome" value={props.profileNameDraft} onChange={props.onProfileNameChange} />
-      <TextField label="E-mail" value={props.profileEmailDraft} onChange={props.onProfileEmailChange} type="email" />
+      <TextField label="Nome" value={props.profileNameDraft} onChange={props.onProfileNameChange} placeholder="Seu nome completo" />
+      <TextField label="E-mail" value={props.profileEmailDraft} onChange={props.onProfileEmailChange} type="email" placeholder="voce@337" />
       <Select
         label="Congregação"
         selectedKey={props.profileCongregacaoDraft}
@@ -64,8 +64,8 @@ export function ProfilePanel(props: ProfilePanelProps) {
         placeholder="Selecione uma função"
         onChange={(keys) => props.onProfileMinisteriosSecundariosChange(keys as MinisterioTag[])}
       />
-      <TextField label="Telefone (opcional)" value={props.profileTelefoneDraft} onChange={props.onProfileTelefoneChange} />
-      <TextArea label="Observação (opcional)" value={props.profileObservacaoDraft} onChange={props.onProfileObservacaoChange} />
+      <TextField label="Telefone (opcional)" value={props.profileTelefoneDraft} onChange={props.onProfileTelefoneChange} placeholder="(11) 99999-9999" />
+      <TextArea label="Observação (opcional)" value={props.profileObservacaoDraft} onChange={props.onProfileObservacaoChange} placeholder="Escreva uma observação curta..." />
       {props.profileError ? <p className="profile-form__error">{props.profileError}</p> : null}
       <div className="row">
         <Button onPress={props.onSave}>Salvar perfil</Button>

@@ -1,69 +1,96 @@
-# Servin — MVP Local-First
+# Servin
 
-Ferramenta de escalas da Estação 337 com `React + TypeScript + Vite`, persistência local e arquitetura modular.
+Aplicação local-first para gestão de escalas da Estação 337, construída com `React + TypeScript + Vite`.
 
-## Scripts
-- `pnpm dev`
-- `pnpm typecheck`
-- `pnpm lint`
-- `pnpm test`
-- `pnpm build`
+## Stack
 
-## Acesso local (seed)
-- `master@337` → perfil `master` (visão global)
-- `adminsppm@337` → admin `SP PM`
-- `adminspam@337` → admin `SP AM`
-- `adminbh@337` → admin `BH`
-- `adminpf@337` → admin `PF`
-- Senhas seed:
-  - `master@337` → `Master337!`
-  - `adminsppm@337`, `adminspam@337`, `adminbh@337`, `adminpf@337` → `Lider337!`
-  - `ana@337`, `bruno@337` → `Membro337!`
+- React 18
+- TypeScript
+- Vite
+- React Aria Components
+- CSS modular com tokens de Design System
+- Persistência local (`localStorage`)
 
-## Funcionalidades atuais
-- Tela inicial com fluxo separado de `Login` e `Novo cadastro`.
-- Login/cadastro local com campos ministeriais (sem backend).
-- Perfis de acesso:
-  - `master` (visão global)
-  - `admin` por congregação (`SP AM`, `SP PM`, `BH`, `PF`) com escopo restrito
-  - `membro`
-- Admin (menu no sidebar):
-  - painel com resumo (KPIs + próximas escalas)
-  - cadastrar/editar/remover membros
-  - editar `papel`, `ministério principal` e `senha` do membro em `admin/membros`
-  - criar/editar/remover equipes
-  - criar/editar/remover funções por equipe
-  - vincular membro à função
-  - criar escala por congregação com:
-    - `DatePicker` (React Aria)
-    - seleção de múltiplos membros via `TagGroup`
-    - observações adicionais
-    - link da playlist
-  - detalhe de escala (músicas, observações, copiar escala)
-- Membro:
-  - área de escala com convites
-  - aceitar/recusar convite
-  - filtrar convites por status
-  - sugerir música
-  - ver músicas, observações e link da playlist do evento
+## Como rodar
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Scripts úteis
+
+- `pnpm dev`: ambiente local
+- `pnpm typecheck`: validação TypeScript
+- `pnpm lint`: validação de lint
+- `pnpm test`: testes unitários (Vitest)
+- `pnpm build`: build de produção
+
+## Arquitetura do projeto
+
+### 1) App Shell
+
+- `src/app/`
+- Responsável por roteamento, layout principal, navegação e composição das features.
+
+### 2) Domain (regras e estado)
+
+- `src/domain/`
+- Contém tipos, store, regras de permissão e helpers.
+- Camada central da lógica de negócio (sem backend).
+
+### 3) Features (módulos por tela)
+
+- `src/features/`
+- Organização por contexto funcional:
+  - `login-screen`
+  - `admin-panel`
+  - `member-panel`
+- Cada módulo segue padrão de separação:
+  - `*.tsx` (UI/comportamento)
+  - `styles.css` (estilo local)
+  - `types.ts` (tipos do módulo)
+  - `*.vitest.tsx` (testes)
+
+### 4) Design System
+
+- `src/design-system/`
+- Componentes reutilizáveis:
+  - `button`
+  - `text-field`
+  - `text-area`
+  - `select`
+  - `date-picker`
+  - `multi-select-tag-group`
+  - `status-badge`
+  - `avatar-field`
+  - `empty-state`
+- Tokens centralizados em:
+  - `src/design-system/tokens/colors.css`
+  - `src/design-system/tokens/spacing.css`
+  - `src/design-system/tokens/typography.css`
+
+## Fluxos principais
+
+- Login e novo cadastro (local)
+- Painel Admin:
+  - membros, equipes, funções, escalas e detalhe da escala
+- Visão Membro:
+  - convites, resposta de escala e visualização de playlist/observações
 - Perfil:
-  - edição de avatar via `FileTrigger` (upload local/base64)
-  - separação entre papel de acesso (`admin`/`membro`) e ministério principal
-  - suporte a múltiplos ministérios secundários com `TagGroup`, telefone e observação
-- Persistência local com `localStorage`.
-- Migração automática de e-mails legados `@local` para `@337`.
+  - dados pessoais, avatar e ministérios
 
-## Arquitetura
-- `src/domain`: modelos, store e helpers.
-- `src/features`: módulos de tela com `tsx + css + types + vitest`.
-- `src/design-system`: tokens e componentes reutilizáveis.
-- `docs/ARCHITECTURE.md`: decisões técnicas e roadmap por lotes.
+## Qualidade e CI
 
-## Limitações do MVP
-- Sem backend.
-- Sem sincronização multiusuário/dispositivo.
+- Quality Gate local e em CI:
+  - typecheck
+  - lint
+  - test
+  - build
+- Workflows em `.github/workflows/` para qualidade e deploy (quando habilitado no repositório).
 
-## Regras de permissão (usuários)
-- Somente `u-master` pode ser `master` (não existe promoção para master via UI).
-- `master` pode excluir `admin` e `membro` (não pode excluir a si mesmo; `master` não é excluível).
-- `admin` pode excluir apenas `membro`.
+## Segurança e escopo
+
+- Projeto sem backend e sem autenticação externa.
+- Dados ficam apenas no navegador do usuário (`localStorage`).
+- Não publicar credenciais reais em documentação.

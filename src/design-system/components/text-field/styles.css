@@ -25,3 +25,47 @@
   border-color: var(--color-focus-border);
   box-shadow: 0 0 0 4px var(--color-primary-soft-2);
 }
+
+.ds-field .ds-field__input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.ds-field .ds-field__password-toggle {
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--color-text-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-field .ds-field__password-toggle:hover {
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  color: var(--color-text-strong);
+}
+
+.ds-field .ds-field__password-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-soft-2);
+  color: var(--color-text-strong);
+}
+
+.ds-field .ds-field__password-toggle .material-symbols-rounded {
+  font-size: 1.2rem;
+}
+
+.ds-field .ds-field__input-wrap .ds-field__input {
+  width: 100%;
+  padding-right: 2.7rem;
+  box-sizing: border-box;
+}

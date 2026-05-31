@@ -334,9 +334,9 @@ export function AdminPanel({
       {adminPage === "add-member" ? (
         <article className="card">
           <h3>Adicionar Membro</h3>
-          <TextField label="Nome" value={nome} onChange={setNome} />
-          <TextField label="E-mail" value={email} onChange={setEmail} />
-          <TextField label="Senha" value={senha} onChange={setSenha} />
+          <TextField label="Nome" value={nome} onChange={setNome} placeholder="Nome completo" />
+          <TextField label="E-mail" value={email} onChange={setEmail} placeholder="usuario@337" />
+          <TextField label="Senha" value={senha} onChange={setSenha} type="password" placeholder="Digite a senha inicial" />
           <AvatarField
             label="Foto do usuário (opcional)"
             value={fotoUrl}
@@ -438,6 +438,7 @@ export function AdminPanel({
             label="Nova equipe"
             value={teamName}
             onChange={setTeamName}
+            placeholder="Ex: Louvor Domingo"
           />
           <Button
             onPress={() => {
@@ -456,6 +457,7 @@ export function AdminPanel({
                   label="Nome"
                   value={team.nome}
                   onChange={(value) => updateTeam(team.id, value)}
+                  placeholder="Nome da equipe"
                 />
                 <Button tone="danger" onPress={() => removeTeam(team.id)}>
                   Remover
@@ -627,6 +629,7 @@ export function AdminPanel({
             label="Título"
             value={scaleTitle}
             onChange={setScaleTitle}
+            placeholder="Ex: Culto de Domingo PM"
           />
           <DatePickerField
             label="Data"
@@ -763,6 +766,7 @@ export function AdminPanel({
                 onChange={(value) =>
                   updateScale(selectedScale.id, { titulo: value })
                 }
+                placeholder="Nome do evento"
               />
               <TextField
                 label="Data"
@@ -824,6 +828,7 @@ export function AdminPanel({
                 onChange={(value) =>
                   updateScale(selectedScale.id, { playlistLink: value })
                 }
+                placeholder="https://open.spotify.com/playlist/..."
               />
               <h4>Observações</h4>
               <TextArea
@@ -865,104 +870,110 @@ export function AdminPanel({
               ...state.teams.map((team) => ({ id: team.id, label: team.nome })),
             ]}
           />
-          <Table aria-label="Tabela de membros" className="admin-members-table">
-            <TableHeader>
-              <Column isRowHeader>Nome</Column>
-              <Column>E-mail</Column>
-              <Column>Congregação</Column>
-              <Column>Papel</Column>
-              <Column>Ministério principal</Column>
-              <Column>Senha</Column>
-              <Column>Ações</Column>
-            </TableHeader>
-            <TableBody items={filteredMembers}>
-              {(user) => (
-                <Row id={user.id}>
-                  <Cell>
-                    <TextField
-                      label="Nome"
-                      value={user.nome}
-                      onChange={(value) => updateUser(user.id, { nome: value })}
-                    />
-                  </Cell>
-                  <Cell>
-                    <TextField
-                      label="E-mail"
-                      value={user.email}
-                      onChange={(value) =>
-                        updateUser(user.id, { email: value })
-                      }
-                    />
-                  </Cell>
-                  <Cell>
-                    <Select
-                      label="Congregação"
-                      selectedKey={user.congregacao}
-                      onSelectionChange={(value) =>
-                        updateUser(user.id, {
-                          congregacao: value as Congregacao,
-                        })
-                      }
-                      options={[
-                        { id: "SP AM", label: "SP AM" },
-                        { id: "SP PM", label: "SP PM" },
-                        { id: "BH", label: "BH" },
-                        { id: "PF", label: "PF" },
-                      ]}
-                    />
-                  </Cell>
-                  <Cell>
-                    {user.id === "u-master" ? (
-                      <TextField label="Papel" value="Master" onChange={() => {}} readOnly />
-                    ) : (
+          <div className="admin-members-table-wrap">
+            <Table aria-label="Tabela de membros" className="admin-members-table">
+              <TableHeader>
+                <Column isRowHeader>Nome</Column>
+                <Column>E-mail</Column>
+                <Column>Congregação</Column>
+                <Column>Papel</Column>
+                <Column>Ministério principal</Column>
+                <Column>Senha</Column>
+                <Column>Ações</Column>
+              </TableHeader>
+              <TableBody items={filteredMembers}>
+                {(user) => (
+                  <Row id={user.id}>
+                    <Cell>
+                      <TextField
+                        label="Nome"
+                        value={user.nome}
+                        onChange={(value) => updateUser(user.id, { nome: value })}
+                        placeholder="Nome do membro"
+                      />
+                    </Cell>
+                    <Cell>
+                      <TextField
+                        label="E-mail"
+                        value={user.email}
+                        onChange={(value) =>
+                          updateUser(user.id, { email: value })
+                        }
+                        placeholder="email@337"
+                      />
+                    </Cell>
+                    <Cell>
                       <Select
-                        label="Papel"
-                      selectedKey={user.role}
-                      onSelectionChange={(value) =>
-                        updateUser(user.id, { role: value as UserRole }, currentUser.id)
-                      }
-                        isDisabled={!isMaster || user.id === currentUser.id}
+                        label="Congregação"
+                        selectedKey={user.congregacao}
+                        onSelectionChange={(value) =>
+                          updateUser(user.id, {
+                            congregacao: value as Congregacao,
+                          })
+                        }
                         options={[
-                          { id: "admin", label: "Admin" },
-                          { id: "membro", label: "Membro" },
+                          { id: "SP AM", label: "SP AM" },
+                          { id: "SP PM", label: "SP PM" },
+                          { id: "BH", label: "BH" },
+                          { id: "PF", label: "PF" },
                         ]}
                       />
-                    )}
-                  </Cell>
-                  <Cell>
-                    <Select
-                      label="Ministério principal"
-                      selectedKey={user.ministerioPrincipal}
-                      onSelectionChange={(value) =>
-                        updateUser(user.id, { ministerioPrincipal: value as MinisterioTag })
-                      }
-                      options={Object.entries(ministerioLabelMap).map(([id, label]) => ({ id, label }))}
-                    />
-                  </Cell>
-                  <Cell>
-                    <TextField
-                      label="Senha"
-                      value={user.senhaApoio ?? ""}
-                      onChange={(value) => updateUser(user.id, { senhaApoio: value })}
-                    />
-                  </Cell>
-                  <Cell>
-                    {(currentUser.role === "master" && user.role !== "master" && user.id !== currentUser.id) ||
-                    (currentUser.role === "admin" && user.role === "membro") ? (
-                      <Button tone="danger" onPress={() => {
-                        const removed = removeUser(user.id, currentUser.id);
-                        showToast(removed ? "Usuário excluído." : "Sem permissão para excluir este usuário.");
-                      }}>
-                        Excluir
-                      </Button>
-                    ) : (
-                      <span>Protegido</span>
-                    )}
-                  </Cell>
-                </Row>
-              )}
-            </TableBody>
-          </Table>
+                    </Cell>
+                    <Cell>
+                      {user.id === "u-master" ? (
+                        <TextField label="Papel" value="Master" onChange={() => {}} readOnly />
+                      ) : (
+                        <Select
+                          label="Papel"
+                        selectedKey={user.role}
+                        onSelectionChange={(value) =>
+                          updateUser(user.id, { role: value as UserRole }, currentUser.id)
+                        }
+                          isDisabled={!isMaster || user.id === currentUser.id}
+                          options={[
+                            { id: "admin", label: "Admin" },
+                            { id: "membro", label: "Membro" },
+                          ]}
+                        />
+                      )}
+                    </Cell>
+                    <Cell>
+                      <Select
+                        label="Ministério principal"
+                        selectedKey={user.ministerioPrincipal}
+                        onSelectionChange={(value) =>
+                          updateUser(user.id, { ministerioPrincipal: value as MinisterioTag })
+                        }
+                        options={Object.entries(ministerioLabelMap).map(([id, label]) => ({ id, label }))}
+                      />
+                    </Cell>
+                    <Cell>
+                      <TextField
+                        label="Senha"
+                        value={user.senhaApoio ?? ""}
+                        onChange={(value) => updateUser(user.id, { senhaApoio: value })}
+                        type="password"
+                        placeholder="Senha de apoio"
+                      />
+                    </Cell>
+                    <Cell>
+                      {(currentUser.role === "master" && user.role !== "master" && user.id !== currentUser.id) ||
+                      (currentUser.role === "admin" && user.role === "membro") ? (
+                        <Button tone="danger" onPress={() => {
+                          const removed = removeUser(user.id, currentUser.id);
+                          showToast(removed ? "Usuário excluído." : "Sem permissão para excluir este usuário.");
+                        }}>
+                          Excluir
+                        </Button>
+                      ) : (
+                        <span>Protegido</span>
+                      )}
+                    </Cell>
+                  </Row>
+                )}
+              </TableBody>
+            </Table>
+          </div>
           {filteredMembers.length === 0 ? (
             <p>Nenhum membro encontrado.</p>
           ) : null}

@@ -117,6 +117,14 @@
   min-width: 980px;
 }
 
+.admin-members-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Tabela de funções por membro na escala */
 .admin-member-roles-table {
   width: 100%;
@@ -329,9 +337,7 @@
 
 @media (max-width: 639px) {
   .admin-members-table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    min-width: 900px;
   }
 }
 

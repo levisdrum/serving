@@ -32,6 +32,7 @@ const STORAGE_KEY = 'louvor-local-app-state-v3';
 const DEFAULT_MEMBER_PASSWORD = 'Membro337!';
 const DEFAULT_LEADER_PASSWORD = 'Lider337!';
 const DEFAULT_MASTER_PASSWORD = 'Master337!';
+const REMOVED_LEGACY_SEED_EMAILS = new Set(['ana@337', 'bruno@337']);
 
 const seedUsers: MemberProfile[] = [
   {
@@ -93,30 +94,6 @@ const seedUsers: MemberProfile[] = [
     ministeriosSecundarios: ['apoio'],
     congregacao: 'PF',
     role: 'admin'
-  },
-  {
-    id: 'u-1',
-    nome: 'Ana Vocal',
-    email: 'ana@337',
-    passwordHash: hashPassword(DEFAULT_MEMBER_PASSWORD),
-    senhaApoio: DEFAULT_MEMBER_PASSWORD,
-    funcao: 'canta',
-    ministerioPrincipal: 'vocalista',
-    ministeriosSecundarios: [],
-    congregacao: 'SP AM',
-    role: 'membro'
-  },
-  {
-    id: 'u-2',
-    nome: 'Bruno Guitar',
-    email: 'bruno@337',
-    passwordHash: hashPassword(DEFAULT_MEMBER_PASSWORD),
-    senhaApoio: DEFAULT_MEMBER_PASSWORD,
-    funcao: 'toca',
-    ministerioPrincipal: 'guitarra',
-    ministeriosSecundarios: [],
-    congregacao: 'BH',
-    role: 'membro'
   }
 ];
 
@@ -125,10 +102,7 @@ const seedTeamRoles: TeamRole[] = [
   { id: 'r-violao', nome: 'Violão' }
 ];
 
-const seedRoleAssignments: TeamRoleAssignment[] = [
-  { id: 'ra-1', teamRoleId: 'r-vocal', memberId: 'u-1' },
-  { id: 'ra-2', teamRoleId: 'r-violao', memberId: 'u-2' }
-];
+const seedRoleAssignments: TeamRoleAssignment[] = [];
 
 const seedState: AppState = {
   users: seedUsers,
@@ -152,9 +126,7 @@ const LOGIN_EMAIL_MIGRATION: Record<string, string> = {
   'lider.sppm@local': 'adminsppm@337',
   'lider.spam@local': 'adminspam@337',
   'lider.bh@local': 'adminbh@337',
-  'lider.pf@local': 'adminpf@337',
-  'ana@local': 'ana@337',
-  'bruno@local': 'bruno@337'
+  'lider.pf@local': 'adminpf@337'
 };
 
 function migrateLoginEmail(email: string) {
@@ -221,7 +193,7 @@ function normalizeState(raw: unknown): AppState {
       observacao: user.observacao ?? '',
       congregacao: (user.congregacao as Congregacao) ?? 'SP PM'
     };
-  });
+  }).filter((user) => !REMOVED_LEGACY_SEED_EMAILS.has(user.email.toLowerCase()));
 
   const teams = (maybe.teams ?? seedState.teams).map((team) => ({
     ...team,
