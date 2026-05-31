@@ -8,4 +8,5 @@ export interface DSTextFieldProps {
   placeholder?: string;
   name?: string;
   readOnly?: boolean;
+  showPasswordToggle?: boolean;
 }

@@ -67,7 +67,7 @@ export function LoginScreen(props: LoginScreenProps) {
               value={props.signupEmail}
               onChange={props.onSignupEmailChange}
               type="email"
-              placeholder="voce@igreja.com"
+              placeholder="seuemail@337"
             />
             <Select
               label="Qual congregação"
@@ -118,7 +118,7 @@ export function LoginScreen(props: LoginScreenProps) {
               value={props.signupPassword}
               onChange={props.onSignupPasswordChange}
               type="password"
-              placeholder="••••••••"
+              placeholder="Crie sua senha"
             />
             {props.signupError ? (
               <p className="login-card__error">{props.signupError}</p>
@@ -132,7 +132,7 @@ export function LoginScreen(props: LoginScreenProps) {
               value={props.identifier}
               onChange={props.onIdentifierChange}
               type="email"
-              placeholder="voce@igreja.com"
+              placeholder="Digite seu e-mail"
               name="email"
             />
             <TextField
@@ -140,7 +140,7 @@ export function LoginScreen(props: LoginScreenProps) {
               value={props.password}
               onChange={props.onPasswordChange}
               type="password"
-              placeholder="••••••••"
+              placeholder="Digite sua senha"
               name="password"
             />
             {props.loginError ? (
