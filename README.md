@@ -1,6 +1,6 @@
-# Servin
+# Serving
 
-Aplicação local-first para gestão de escalas da Estação 337, construída com `React + TypeScript + Vite`.
+Aplicação local-first para gestão de escalas, construída com `React + TypeScript + Vite`.
 
 ## Stack
 
