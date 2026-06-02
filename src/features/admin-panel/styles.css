@@ -366,6 +366,11 @@
   display: none;
 }
 
+.admin-members-row-actions {
+  display: flex;
+  margin-bottom: var(--space-2);
+}
+
 /* Song form em grid 2 colunas */
 .admin-song-form {
   display: grid;

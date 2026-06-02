@@ -8,7 +8,6 @@ function makeUser(id: string, role: MemberProfile['role']): MemberProfile {
     nome: `${role}-${id}`,
     email: `${role}-${id}@337`,
     passwordHash: 'hash',
-    senhaApoio: 'senha',
     funcao: 'canta',
     ministerioPrincipal: 'vocalista',
     ministeriosSecundarios: [],

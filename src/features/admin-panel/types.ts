@@ -29,7 +29,7 @@ export interface AdminPanelProps {
       ministeriosSecundarios?: MinisterioTag[];
       telefone?: string;
       observacao?: string;
-      senhaApoio?: string;
+      password?: string;
     },
     actorId?: string
   ) => void;

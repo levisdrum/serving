@@ -40,7 +40,6 @@ const seedUsers: MemberProfile[] = [
     nome: 'Master Servin',
     email: 'master@337',
     passwordHash: hashPassword(DEFAULT_MASTER_PASSWORD),
-    senhaApoio: DEFAULT_MASTER_PASSWORD,
     funcao: 'pastor',
     ministerioPrincipal: 'ministro-louvor',
     ministeriosSecundarios: [],
@@ -52,7 +51,6 @@ const seedUsers: MemberProfile[] = [
     nome: 'Líder SP PM',
     email: 'adminsppm@337',
     passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    senhaApoio: DEFAULT_LEADER_PASSWORD,
     funcao: 'pastor',
     ministerioPrincipal: 'ministro-louvor',
     ministeriosSecundarios: ['apoio'],
@@ -64,7 +62,6 @@ const seedUsers: MemberProfile[] = [
     nome: 'Líder SP AM',
     email: 'adminspam@337',
     passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    senhaApoio: DEFAULT_LEADER_PASSWORD,
     funcao: 'pastor',
     ministerioPrincipal: 'ministro-louvor',
     ministeriosSecundarios: ['apoio'],
@@ -76,7 +73,6 @@ const seedUsers: MemberProfile[] = [
     nome: 'Líder BH',
     email: 'adminbh@337',
     passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    senhaApoio: DEFAULT_LEADER_PASSWORD,
     funcao: 'pastor',
     ministerioPrincipal: 'ministro-louvor',
     ministeriosSecundarios: ['apoio'],
@@ -88,7 +84,6 @@ const seedUsers: MemberProfile[] = [
     nome: 'Líder PF',
     email: 'adminpf@337',
     passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    senhaApoio: DEFAULT_LEADER_PASSWORD,
     funcao: 'pastor',
     ministerioPrincipal: 'ministro-louvor',
     ministeriosSecundarios: ['apoio'],
@@ -177,13 +172,6 @@ function normalizeState(raw: unknown): AppState {
       nome: user.nome,
       email: migrateLoginEmail(user.email),
       passwordHash: user.passwordHash ?? hashPassword(DEFAULT_MEMBER_PASSWORD),
-      senhaApoio:
-        user.senhaApoio ??
-        (normalizedRole === 'master'
-          ? DEFAULT_MASTER_PASSWORD
-          : normalizedRole === 'admin'
-            ? DEFAULT_LEADER_PASSWORD
-            : DEFAULT_MEMBER_PASSWORD),
       role: normalizedRole,
       funcao: (user.funcao as RoleTag) ?? 'canta',
       ministerioPrincipal: (user.ministerioPrincipal as MinisterioTag) ?? roleTagToMinisterio(user.funcao as RoleTag),
@@ -304,8 +292,7 @@ export function useAppStore() {
           observacao: '',
           ...rest,
           role: 'membro',
-          passwordHash: hashPassword(safePassword),
-          senhaApoio: safePassword
+          passwordHash: hashPassword(safePassword)
         };
         const next: AppState = {
           ...state,
@@ -328,7 +315,7 @@ export function useAppStore() {
           ministeriosSecundarios?: MinisterioTag[];
           telefone?: string;
           observacao?: string;
-          senhaApoio?: string;
+          password?: string;
         },
         actorId?: string
       ) {
@@ -349,9 +336,8 @@ export function useAppStore() {
             }
 
             const nextUser: MemberProfile = { ...user, ...safePatch };
-            if (typeof patch.senhaApoio === 'string' && patch.senhaApoio.trim()) {
-              nextUser.senhaApoio = patch.senhaApoio.trim();
-              nextUser.passwordHash = hashPassword(patch.senhaApoio.trim());
+            if (typeof patch.password === 'string' && patch.password.trim()) {
+              nextUser.passwordHash = hashPassword(patch.password.trim());
             }
             return nextUser;
           });

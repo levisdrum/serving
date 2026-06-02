@@ -58,7 +58,6 @@ export interface MemberProfile {
   nome: string;
   email: string;
   passwordHash: string;
-  senhaApoio?: string;
   fotoUrl?: string;
   funcao: RoleTag;
   ministerioPrincipal: MinisterioTag;
