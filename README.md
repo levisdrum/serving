@@ -93,4 +93,5 @@ pnpm dev
 
 - Projeto sem backend e sem autenticação externa.
 - Dados ficam apenas no navegador do usuário (`localStorage`).
+- Criptografia local existe para reduzir exposição casual, mas não substitui segurança de servidor.
 - Não publicar credenciais reais em documentação.

@@ -23,6 +23,7 @@ export function useAdminPanelState(state: AdminPanelProps['state']) {
   const [scalePlaylistLink, setScalePlaylistLink] = useState('');
   const [memberSearch, setMemberSearch] = useState('');
   const [memberFilterTeamId, setMemberFilterTeamId] = useState('');
+  const [memberPasswordDrafts, setMemberPasswordDrafts] = useState<Record<string, string>>({});
   const [selectedScaleId, setSelectedScaleId] = useState(() => state.scales[0]?.id ?? '');
   const [songDraft, setSongDraft] = useState<Omit<EventSong, 'id'>>({ titulo: '', tom: '', bpm: '', link: '', observacao: '' });
   const [copyFeedback, setCopyFeedback] = useState('');
@@ -49,6 +50,7 @@ export function useAdminPanelState(state: AdminPanelProps['state']) {
     scalePlaylistLink, setScalePlaylistLink,
     memberSearch, setMemberSearch,
     memberFilterTeamId, setMemberFilterTeamId,
+    memberPasswordDrafts, setMemberPasswordDrafts,
     selectedScaleId, setSelectedScaleId,
     songDraft, setSongDraft,
     copyFeedback, setCopyFeedback,

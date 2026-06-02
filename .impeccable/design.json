@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0",
+  "register": "product",
+  "source": "DESIGN.md",
+  "product": {
+    "name": "Servin",
+    "description": "Ferramenta de escalas da Estacao 337",
+    "scope": "local-first MVP without backend, billing, public signup, or multi-tenant behavior"
+  },
+  "tokenPolicy": {
+    "sourceOfTruth": "src/design-system/tokens",
+    "requireTokensFor": ["colors", "spacing", "radii", "typography", "shadows", "z-index"],
+    "avoidHardcodedValuesIn": ["src/features", "src/app"]
+  },
+  "accessibility": {
+    "target": "WCAG AA",
+    "interactiveLibrary": "react-aria-components",
+    "requirements": [
+      "visible focus states",
+      "explicit labels",
+      "keyboard navigation",
+      "semantic table and form structure",
+      "no color-only status communication"
+    ]
+  },
+  "componentRules": {
+    "designSystemPath": "src/design-system/components",
+    "fileShape": ["component.tsx", "styles.css", "types.ts", "component.vitest.tsx"],
+    "sharedPrimitiveThreshold": "Move to design system when reused by two or more feature screens."
+  },
+  "layoutRules": {
+    "admin": "Dark sidebar, compact topbar, cards and tables in a light workspace.",
+    "member": "Simpler navigation and task-first content.",
+    "mobile": "No horizontal overflow. Prefer compact rows or stacked metadata for dense tables."
+  },
+  "securityCopyRules": {
+    "forbiddenPublicDocs": ["seed credentials", "default passwords", "local access secrets"]
+  }
+}
