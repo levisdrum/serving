@@ -8,6 +8,9 @@ export interface LoginScreenProps {
   identifier: string;
   password: string;
   loginError: string;
+  bootstrapToken: string;
+  bootstrapError: string;
+  canImportBootstrap: boolean;
   signupName: string;
   signupEmail: string;
   signupCongregacao: Congregacao;
@@ -18,6 +21,8 @@ export interface LoginScreenProps {
   onIdentifierChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onLogin: () => void;
+  onBootstrapTokenChange: (value: string) => void;
+  onImportBootstrap: () => void;
   onShowHome: () => void;
   onShowLogin: () => void;
   onShowSignup: () => void;

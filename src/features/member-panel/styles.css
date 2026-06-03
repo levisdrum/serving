@@ -267,46 +267,6 @@
   background: color-mix(in srgb, var(--color-primary) 6%, transparent);
 }
 
-/* Músicas */
-.member-panel__songs {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-3);
-}
-
-.member-panel__song-item {
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-card-bg);
-  border-radius: var(--radius-control);
-  display: grid;
-  gap: var(--space-2);
-}
-
-.member-panel__song-main {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-.member-panel__song-tag {
-  font-size: var(--font-size-sm);
-  background: var(--color-gray-100);
-  border: var(--size-border-thin) solid var(--color-card-border);
-  padding: var(--size-offset-2) var(--space-3);
-  border-radius: var(--radius-pill);
-  color: var(--color-text-soft);
-}
-
-.member-panel__song-obs {
-  font-size: var(--font-size-md);
-  color: var(--color-text-soft);
-  margin: 0;
-}
-
-.member-panel__song-link,
 .member-panel__playlist-link {
   display: inline-flex;
   align-items: center;

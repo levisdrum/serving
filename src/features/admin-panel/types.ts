@@ -1,4 +1,4 @@
-import type { AppState, AdminPageId, Congregacao, EventSong, MemberProfile, MinisterioTag, RoleTag, UserRole } from '../../domain/types';
+import type { AppState, AdminPageId, Congregacao, MemberProfile, MinisterioTag, RoleTag, UserRole } from '../../domain/types';
 
 export interface AdminPanelProps {
   state: AppState;
@@ -7,7 +7,7 @@ export interface AdminPanelProps {
   addUser: (input: {
     nome: string;
     email: string;
-    password?: string;
+    password: string;
     funcao: RoleTag;
     ministerioPrincipal: MinisterioTag;
     ministeriosSecundarios: MinisterioTag[];
@@ -54,8 +54,5 @@ export interface AdminPanelProps {
   }) => void;
   updateScale: (scaleId: string, patch: { titulo?: string; dataISO?: string; notes?: string; playlistLink?: string }) => void;
   updateScaleAssignment: (scaleId: string, assignmentId: string, ministerio: MinisterioTag) => void;
-  addScaleSong: (scaleId: string, input: Omit<EventSong, 'id'>) => void;
-  updateScaleSong: (scaleId: string, songId: string, patch: Partial<Omit<EventSong, 'id'>>) => void;
-  removeScaleSong: (scaleId: string, songId: string) => void;
   onNavigate: (page: AdminPageId) => void;
 }

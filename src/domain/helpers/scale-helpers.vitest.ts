@@ -13,7 +13,6 @@ const scales: EventScale[] = [
       { id: 'a1', memberId: 'u1', status: 'pendente' },
       { id: 'a2', memberId: 'u2', status: 'aceito' }
     ],
-    songs: [],
     notes: ''
   },
   {
@@ -23,7 +22,6 @@ const scales: EventScale[] = [
     titulo: 'Culto B',
     dataISO: '2026-05-01',
     assignments: [{ id: 'a3', memberId: 'u3', status: 'recusado' }],
-    songs: [],
     notes: ''
   }
 ];

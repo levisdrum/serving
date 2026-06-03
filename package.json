@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "bootstrap:token": "node scripts/create-bootstrap-token.mjs"
   },
   "dependencies": {
     "@internationalized/date": "^3.12.2",

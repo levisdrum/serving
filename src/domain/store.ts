@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
+import { decodeBootstrapToken } from './bootstrap-token';
 import { decryptState, encryptState, hashPassword } from './security';
 import type {
   AppState,
   Congregacao,
   EventScale,
-  EventSong,
   MinisterioTag,
   MemberProfile,
   RoleTag,
@@ -24,74 +24,10 @@ type LegacyScale = {
   dataISO: string;
   inviteStatuses?: Record<string, unknown>;
   assignments?: ScaleAssignment[];
-  songs?: EventSong[];
   notes?: string;
 };
 
 const STORAGE_KEY = 'louvor-local-app-state-v3';
-const DEFAULT_MEMBER_PASSWORD = 'Membro337!';
-const DEFAULT_LEADER_PASSWORD = 'Lider337!';
-const DEFAULT_MASTER_PASSWORD = 'Master337!';
-const REMOVED_LEGACY_SEED_EMAILS = new Set(['ana@337', 'bruno@337']);
-
-const seedUsers: MemberProfile[] = [
-  {
-    id: 'u-master',
-    nome: 'Master Servin',
-    email: 'master@337',
-    passwordHash: hashPassword(DEFAULT_MASTER_PASSWORD),
-    funcao: 'pastor',
-    ministerioPrincipal: 'ministro-louvor',
-    ministeriosSecundarios: [],
-    congregacao: 'SP PM',
-    role: 'master'
-  },
-  {
-    id: 'u-admin-sp-pm',
-    nome: 'Líder SP PM',
-    email: 'adminsppm@337',
-    passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    funcao: 'pastor',
-    ministerioPrincipal: 'ministro-louvor',
-    ministeriosSecundarios: ['apoio'],
-    congregacao: 'SP PM',
-    role: 'admin'
-  },
-  {
-    id: 'u-admin-sp-am',
-    nome: 'Líder SP AM',
-    email: 'adminspam@337',
-    passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    funcao: 'pastor',
-    ministerioPrincipal: 'ministro-louvor',
-    ministeriosSecundarios: ['apoio'],
-    congregacao: 'SP AM',
-    role: 'admin'
-  },
-  {
-    id: 'u-admin-bh',
-    nome: 'Líder BH',
-    email: 'adminbh@337',
-    passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    funcao: 'pastor',
-    ministerioPrincipal: 'ministro-louvor',
-    ministeriosSecundarios: ['apoio'],
-    congregacao: 'BH',
-    role: 'admin'
-  },
-  {
-    id: 'u-admin-pf',
-    nome: 'Líder PF',
-    email: 'adminpf@337',
-    passwordHash: hashPassword(DEFAULT_LEADER_PASSWORD),
-    funcao: 'pastor',
-    ministerioPrincipal: 'ministro-louvor',
-    ministeriosSecundarios: ['apoio'],
-    congregacao: 'PF',
-    role: 'admin'
-  }
-];
-
 const seedTeamRoles: TeamRole[] = [
   { id: 'r-vocal', nome: 'Vocal' },
   { id: 'r-violao', nome: 'Violão' }
@@ -100,12 +36,12 @@ const seedTeamRoles: TeamRole[] = [
 const seedRoleAssignments: TeamRoleAssignment[] = [];
 
 const seedState: AppState = {
-  users: seedUsers,
+  users: [],
   teams: [
     {
       id: 't-1',
       nome: 'Louvor Domingo',
-      memberIds: seedUsers.map((m) => m.id),
+      memberIds: [],
       roles: seedTeamRoles,
       roleAssignments: seedRoleAssignments
     }
@@ -116,17 +52,8 @@ const seedState: AppState = {
 
 const randomId = () => Math.random().toString(36).slice(2, 9);
 
-const LOGIN_EMAIL_MIGRATION: Record<string, string> = {
-  'master@local': 'master@337',
-  'lider.sppm@local': 'adminsppm@337',
-  'lider.spam@local': 'adminspam@337',
-  'lider.bh@local': 'adminbh@337',
-  'lider.pf@local': 'adminpf@337'
-};
-
 function migrateLoginEmail(email: string) {
-  const normalized = email.trim().toLowerCase();
-  return LOGIN_EMAIL_MIGRATION[normalized] ?? normalized;
+  return email.trim().toLowerCase();
 }
 
 function normalizeState(raw: unknown): AppState {
@@ -159,19 +86,16 @@ function normalizeState(raw: unknown): AppState {
     return 'nao-informado';
   };
 
+  let masterSeen = false;
   const users: MemberProfile[] = (maybe.users ?? seedState.users).map((user) => {
-    // Guardrail: only canonical seed user can be master.
-    const normalizedRole: UserRole = user.id === 'u-master'
-      ? 'master'
-      : user.role === 'master'
-        ? 'admin'
-        : user.role;
+    const normalizedRole: UserRole = user.role === 'master' && !masterSeen ? 'master' : user.role === 'master' ? 'admin' : user.role;
+    if (normalizedRole === 'master') masterSeen = true;
 
     return {
       id: user.id,
       nome: user.nome,
       email: migrateLoginEmail(user.email),
-      passwordHash: user.passwordHash ?? hashPassword(DEFAULT_MEMBER_PASSWORD),
+      passwordHash: user.passwordHash ?? '',
       role: normalizedRole,
       funcao: (user.funcao as RoleTag) ?? 'canta',
       ministerioPrincipal: (user.ministerioPrincipal as MinisterioTag) ?? roleTagToMinisterio(user.funcao as RoleTag),
@@ -181,7 +105,7 @@ function normalizeState(raw: unknown): AppState {
       observacao: user.observacao ?? '',
       congregacao: (user.congregacao as Congregacao) ?? 'SP PM'
     };
-  }).filter((user) => !REMOVED_LEGACY_SEED_EMAILS.has(user.email.toLowerCase()));
+  });
 
   const teams = (maybe.teams ?? seedState.teams).map((team) => ({
     ...team,
@@ -194,7 +118,6 @@ function normalizeState(raw: unknown): AppState {
       return {
         ...(scale as EventScale),
         ownerAdminId: (scale as EventScale).ownerAdminId ?? '',
-        songs: (scale as EventScale).songs ?? [],
         notes: (scale as EventScale).notes ?? '',
         playlistLink: (scale as EventScale).playlistLink ?? '',
         congregacao: (scale as EventScale).congregacao ?? 'SP PM'
@@ -219,7 +142,6 @@ function normalizeState(raw: unknown): AppState {
       titulo: legacy.titulo,
       dataISO: legacy.dataISO,
       assignments: legacy.assignments ?? fallbackAssignments,
-      songs: legacy.songs ?? [],
       notes: legacy.notes ?? '',
       playlistLink: ''
     };
@@ -273,7 +195,7 @@ export function useAppStore() {
       addUser(input: {
         nome: string;
         email: string;
-        password?: string;
+        password: string;
         funcao: RoleTag;
         ministerioPrincipal: MinisterioTag;
         ministeriosSecundarios: MinisterioTag[];
@@ -284,14 +206,16 @@ export function useAppStore() {
         role: UserRole;
       }) {
         const { password, ...rest } = input;
-        const safePassword = password ?? DEFAULT_MEMBER_PASSWORD;
+        const safePassword = password.trim();
+        if (safePassword.length < 3) return;
+        const isFirstUser = state.users.length === 0;
         const createdUser: MemberProfile = {
           id: randomId(),
           fotoUrl: '',
           telefone: '',
           observacao: '',
           ...rest,
-          role: 'membro',
+          role: isFirstUser ? 'master' : 'membro',
           passwordHash: hashPassword(safePassword)
         };
         const next: AppState = {
@@ -302,6 +226,52 @@ export function useAppStore() {
           ]
         };
         persist(next);
+      },
+      importBootstrapToken(token: string) {
+        const payload = decodeBootstrapToken(token);
+        if (!payload) return false;
+
+        let masterSeen = state.users.some((user) => user.role === 'master');
+        const existingEmails = new Set(state.users.map((user) => user.email.toLowerCase()));
+        const users = payload.users.reduce<MemberProfile[]>((acc, user, index) => {
+          if (existingEmails.has(user.email)) return acc;
+
+          const requestedRole = user.role ?? (state.users.length === 0 && index === 0 ? 'master' : 'membro');
+          const role: UserRole = requestedRole === 'master'
+            ? masterSeen
+              ? 'admin'
+              : 'master'
+            : requestedRole;
+
+          if (role === 'master') masterSeen = true;
+          existingEmails.add(user.email);
+
+          acc.push({
+            id: randomId(),
+            nome: user.nome,
+            email: user.email,
+            passwordHash: hashPassword(user.password),
+            fotoUrl: user.fotoUrl ?? '',
+            funcao: user.funcao ?? 'outro',
+            ministerioPrincipal: user.ministerioPrincipal ?? 'nao-informado',
+            ministeriosSecundarios: user.ministeriosSecundarios ?? [],
+            telefone: user.telefone ?? '',
+            observacao: user.observacao ?? '',
+            congregacao: user.congregacao,
+            role
+          });
+
+          return acc;
+        }, []);
+
+        if (users.length === 0) return false;
+
+        const next: AppState = {
+          ...state,
+          users: [...state.users, ...users]
+        };
+        persist(next);
+        return true;
       },
       updateUser(
         userId: string,
@@ -328,7 +298,7 @@ export function useAppStore() {
               const canManageRoles = actor?.role === 'master';
               if (!canManageRoles) {
                 delete safePatch.role;
-              } else if (user.id === 'u-master') {
+              } else if (user.role === 'master') {
                 safePatch.role = 'master';
               } else if (safePatch.role === 'master') {
                 safePatch.role = 'admin';
@@ -498,7 +468,6 @@ export function useAppStore() {
           titulo: input.titulo,
           dataISO: input.dataISO,
           assignments,
-          songs: [],
           notes: input.notes ?? '',
           playlistLink: input.playlistLink ?? ''
         };
@@ -524,37 +493,6 @@ export function useAppStore() {
         persist({
           ...state,
           scales: state.scales.map((scale) => (scale.id === scaleId ? { ...scale, ...patch } : scale))
-        });
-      },
-      addScaleSong(scaleId: string, input: Omit<EventSong, 'id'>) {
-        persist({
-          ...state,
-          scales: state.scales.map((scale) =>
-            scale.id !== scaleId
-              ? scale
-              : { ...scale, songs: [...scale.songs, { id: randomId(), ...input }] }
-          )
-        });
-      },
-      updateScaleSong(scaleId: string, songId: string, patch: Partial<Omit<EventSong, 'id'>>) {
-        persist({
-          ...state,
-          scales: state.scales.map((scale) =>
-            scale.id !== scaleId
-              ? scale
-              : {
-                  ...scale,
-                  songs: scale.songs.map((song) => (song.id === songId ? { ...song, ...patch } : song))
-                }
-          )
-        });
-      },
-      removeScaleSong(scaleId: string, songId: string) {
-        persist({
-          ...state,
-          scales: state.scales.map((scale) =>
-            scale.id !== scaleId ? scale : { ...scale, songs: scale.songs.filter((song) => song.id !== songId) }
-          )
         });
       },
       respondInvite(scaleId: string, assignmentId: string, status: 'aceito' | 'recusado') {

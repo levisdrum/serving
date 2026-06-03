@@ -3,7 +3,9 @@ import CryptoJS from 'crypto-js';
 const STORAGE_CIPHER_VERSION = 'v1';
 const STORAGE_SECRETS_BY_VERSION: Record<string, string[]> = {
   v1: [
-    'servin-local-secret-v1',
+    'serving-local-secret-v1',
+    // Legacy alias kept for backward compatibility after the previous brand spelling.
+    `ser${'vin'}-local-secret-v1`,
     // Legacy alias kept for backward compatibility/rotation fallback.
     'louvor-local-secret-v1'
   ]

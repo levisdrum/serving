@@ -42,9 +42,9 @@
 
 ### [2026-05-29] Lote B/C — detalhe de escala, resumo e filtros
 - Objetivo: completar o MVP funcional de operação do ministério sem backend.
-- Escopo: resumo admin, detalhe da escala, músicas/observações/cópia, edição simples e filtros/busca.
+- Escopo: resumo admin, detalhe da escala, playlist/observações, edição simples e filtros/busca.
 - Passos:
-1. Estender modelos e store com músicas/notes/edição.
+1. Estender modelos e store com playlist/notes/edição.
 2. Atualizar páginas Admin e Membro com os novos fluxos.
 3. Ajustar documentação e cobertura de testes.
 - Validação: `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`.

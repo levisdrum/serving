@@ -1,11 +1,11 @@
 .ds-select {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-2);
 }
 
 .ds-select .ds-field__label {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: var(--font-size-control);
+  line-height: var(--line-height-control);
   font-weight: 500;
   color: var(--color-label);
 }
@@ -17,9 +17,9 @@
 .ds-select .ds-select__trigger {
   width: 100%;
   height: var(--control-height);
-  border: 1px solid var(--color-input-border);
+  border: var(--size-border-thin) solid var(--color-input-border);
   border-radius: var(--radius-control);
-  padding: 0.625rem 0.875rem;
+  padding: var(--control-padding-y) var(--control-padding-x);
   background: var(--color-input-bg);
   color: var(--color-input-text);
   display: flex;
@@ -30,13 +30,13 @@
 }
 
 .ds-select .ds-select__trigger[data-focus-visible='true'] {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 2px;
+  outline: var(--size-border-strong) solid var(--color-focus-ring);
+  outline-offset: var(--size-offset-2);
 }
 
 .ds-select .ds-select__trigger[data-open='true'] {
   border-color: var(--color-focus-border);
-  box-shadow: 0 0 0 4px var(--color-primary-soft-2);
+  box-shadow: 0 0 0 var(--control-focus-ring-size) var(--color-primary-soft-2);
 }
 
 .ds-select[data-disabled='true'] .ds-select__trigger {
@@ -47,26 +47,26 @@
 
 .ds-select__popover {
   min-width: var(--trigger-width);
-  max-height: 280px;
+  max-height: var(--control-popover-max-height);
   overflow: auto;
   background: var(--color-card-bg);
-  border: 1px solid var(--color-card-border);
+  border: var(--size-border-thin) solid var(--color-card-border);
   border-radius: var(--radius-control);
-  padding: 0.25rem;
+  padding: var(--space-1);
   color: var(--color-input-text);
   box-shadow: var(--shadow-2);
 }
 
 .ds-select__list {
   display: grid;
-  gap: 0.125rem;
+  gap: calc(var(--space-1) / 2);
 }
 
 .ds-select__item {
-  padding: 0.45rem 0.55rem;
+  padding: var(--space-2) var(--space-2);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-size-control);
   outline: none;
 }
 

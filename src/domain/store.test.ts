@@ -6,7 +6,7 @@ function makeUser(id: string, role: MemberProfile['role']): MemberProfile {
   return {
     id,
     nome: `${role}-${id}`,
-    email: `${role}-${id}@337`,
+    email: `${role}-${id}@example.com`,
     passwordHash: 'hash',
     funcao: 'canta',
     ministerioPrincipal: 'vocalista',
@@ -18,7 +18,7 @@ function makeUser(id: string, role: MemberProfile['role']): MemberProfile {
 
 describe('canRemoveUser', () => {
   it('permite master excluir admin e membro', () => {
-    const master = makeUser('u-master', 'master');
+    const master = makeUser('u-owner', 'master');
     const admin = makeUser('u-admin', 'admin');
     const membro = makeUser('u-membro', 'membro');
     expect(canRemoveUser(master, admin)).toBe(true);
@@ -28,7 +28,7 @@ describe('canRemoveUser', () => {
   it('não permite admin excluir admin ou master', () => {
     const adminA = makeUser('u-admin-a', 'admin');
     const adminB = makeUser('u-admin-b', 'admin');
-    const master = makeUser('u-master', 'master');
+    const master = makeUser('u-owner', 'master');
     expect(canRemoveUser(adminA, adminB)).toBe(false);
     expect(canRemoveUser(adminA, master)).toBe(false);
   });

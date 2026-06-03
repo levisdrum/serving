@@ -86,7 +86,7 @@ export function MembersSection(props: MembersSectionProps) {
                     onChange={(value) =>
                       props.updateUser(user.id, { email: value })
                     }
-                    placeholder="email@337"
+                    placeholder="nome@exemplo.com"
                   />
                 </Cell>
                 <Cell>
@@ -107,7 +107,7 @@ export function MembersSection(props: MembersSectionProps) {
                   />
                 </Cell>
                 <Cell>
-                  {user.id === "u-master" ? (
+                  {user.role === "master" ? (
                     <TextField label="Papel" value="Master" onChange={() => {}} readOnly />
                   ) : (
                     <Select

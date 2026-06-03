@@ -19,14 +19,13 @@ Aplicação `React + TypeScript + Vite`, local-first, com persistência em `loca
   - `playlistLink`
 - `MemberProfile`:
   - papel de acesso (`role`: `master` | `admin` | `membro`)
-  - senha de apoio (`senhaApoio`) para suporte operacional no admin
+  - hash de senha local (`passwordHash`)
   - ministério principal (`ministerioPrincipal`)
   - ministérios secundários (`ministeriosSecundarios`)
   - dados de perfil (`fotoUrl`, `telefone`, `observacao`)
 
 ## Helpers de domínio
 - `scale-helpers`: resumo de status e próximas escalas.
-- `scale-message`: formatação de mensagem textual para compartilhar escala.
 - `canRemoveUser`: regra central de permissão para exclusão de usuários.
 
 ## Fluxo operacional entregue
@@ -34,7 +33,8 @@ Aplicação `React + TypeScript + Vite`, local-first, com persistência em `loca
 - Admin com páginas por funcionalidade no sidebar e painel inicial.
 - Admin por congregação com escopo de dados restrito.
 - Master com visão global de todas as congregações.
-- Guardrail de papel: somente o usuário canônico `u-master` permanece `master`.
+- Guardrail de papel: o primeiro cadastro local inicializa `master`; cadastros seguintes entram como `membro`.
+- Bootstrap por token minificado decodifica usuários localmente e persiste apenas `passwordHash`.
 - Membro com área de escala, convites e leitura de detalhe do evento.
 - Edição e filtros locais sem backend.
 - Fallback de compatibilidade para usuários antigos no `localStorage`.
@@ -46,6 +46,8 @@ Aplicação `React + TypeScript + Vite`, local-first, com persistência em `loca
 ## Limitações vigentes
 - Sem backend e sem sincronização entre dispositivos.
 - Login local simplificado, sem autenticação real.
+- Sem credenciais seedadas no bundle público.
+- Token de bootstrap é mecanismo de setup local, não segredo de produção.
 - Sem envio real de e-mail (fluxo de convite é interno no app).
 
 ## Regras de segurança funcional

@@ -144,6 +144,18 @@ export function App() {
     navigateTo('/login');
   };
 
+  const handleImportBootstrap = () => {
+    const imported = actions.importBootstrapToken(auth.bootstrapToken);
+    if (!imported) {
+      auth.setBootstrapError('Token inválido ou sem usuários novos.');
+      return;
+    }
+
+    auth.setBootstrapToken('');
+    auth.setBootstrapError('');
+    navigateTo('/login');
+  };
+
   const openEditProfile = () => {
     if (!currentUser) return;
     profile.loadFromUser(currentUser);
@@ -189,6 +201,9 @@ export function App() {
         identifier={auth.identifier}
         password={auth.password}
         loginError={auth.loginError}
+        bootstrapToken={auth.bootstrapToken}
+        bootstrapError={auth.bootstrapError}
+        canImportBootstrap={state.users.length === 0}
         signupName={auth.signupName}
         signupEmail={auth.signupEmail}
         signupCongregacao={auth.signupCongregacao}
@@ -199,6 +214,8 @@ export function App() {
         onIdentifierChange={auth.setIdentifier}
         onPasswordChange={auth.setPassword}
         onLogin={handleLogin}
+        onBootstrapTokenChange={auth.setBootstrapToken}
+        onImportBootstrap={handleImportBootstrap}
         onShowHome={() => {
           auth.setLoginError('');
           auth.setSignupError('');
@@ -312,9 +329,6 @@ export function App() {
                   createScale={actions.createScale}
                   updateScale={actions.updateScale}
                   updateScaleAssignment={actions.updateScaleAssignment}
-                  addScaleSong={actions.addScaleSong}
-                  updateScaleSong={actions.updateScaleSong}
-                  removeScaleSong={actions.removeScaleSong}
                   onNavigate={(page) => {
                     navigateTo(ADMIN_PAGE_PATHS[page]);
                   }}

@@ -22,6 +22,7 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+bootstrap-users*.json
 
 # Local editor/OS files
 .DS_Store
@@ -33,6 +34,10 @@ pnpm-debug.log*
 # Test artifacts
 test-results/
 playwright-report/
+.impeccable/*.png
+.impeccable/*.jpg
+.impeccable/*.jpeg
+.impeccable/*.webp
 
 # Temporary files
 *.tmp

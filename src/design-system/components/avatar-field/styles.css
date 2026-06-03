@@ -1,6 +1,6 @@
 .ds-avatar-field {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-2);
 }
 
 .ds-avatar-field__row {
@@ -11,8 +11,8 @@
 
 .ds-avatar-field__preview,
 .ds-avatar-field__placeholder {
-  width: 52px;
-  height: 52px;
+  width: var(--size-avatar-lg);
+  height: var(--size-avatar-lg);
   border-radius: var(--radius-pill);
   object-fit: cover;
   background: var(--color-primary-tint-2);

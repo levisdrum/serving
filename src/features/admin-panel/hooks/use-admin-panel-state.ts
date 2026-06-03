@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import type { Congregacao, EventSong, MinisterioTag, RoleTag } from '../../../domain/types';
+import type { Congregacao, MinisterioTag, RoleTag } from '../../../domain/types';
 import type { AdminPanelProps } from '../types';
 
 export function useAdminPanelState(state: AdminPanelProps['state']) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('Membro337!');
+  const [senha, setSenha] = useState('');
   const [fotoUrl, setFotoUrl] = useState('');
   const [funcao, setFuncao] = useState<RoleTag>('canta');
   const [ministerioPrincipal, setMinisterioPrincipal] = useState<MinisterioTag>('nao-informado');
@@ -25,8 +25,6 @@ export function useAdminPanelState(state: AdminPanelProps['state']) {
   const [memberFilterTeamId, setMemberFilterTeamId] = useState('');
   const [memberPasswordDrafts, setMemberPasswordDrafts] = useState<Record<string, string>>({});
   const [selectedScaleId, setSelectedScaleId] = useState(() => state.scales[0]?.id ?? '');
-  const [songDraft, setSongDraft] = useState<Omit<EventSong, 'id'>>({ titulo: '', tom: '', bpm: '', link: '', observacao: '' });
-  const [copyFeedback, setCopyFeedback] = useState('');
   const [toast, setToast] = useState('');
 
   return {
@@ -52,8 +50,6 @@ export function useAdminPanelState(state: AdminPanelProps['state']) {
     memberFilterTeamId, setMemberFilterTeamId,
     memberPasswordDrafts, setMemberPasswordDrafts,
     selectedScaleId, setSelectedScaleId,
-    songDraft, setSongDraft,
-    copyFeedback, setCopyFeedback,
     toast, setToast,
   };
 }

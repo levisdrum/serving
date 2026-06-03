@@ -1,9 +1,9 @@
 .ds-status-badge {
-  font-size: 0.78rem;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 2px 8px;
+  padding: var(--size-offset-2) var(--size-offset-8);
   border-radius: var(--radius-pill);
   white-space: nowrap;
 }

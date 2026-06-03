@@ -1,23 +1,23 @@
 .ds-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  border: 1px solid transparent;
+  gap: var(--space-1-5);
+  border: var(--size-border-thin) solid transparent;
   border-radius: var(--radius-control);
-  padding: 0.625rem 0.875rem;
+  padding: var(--control-padding-y) var(--control-padding-x);
   font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: var(--font-size-control);
+  line-height: var(--line-height-control);
   cursor: pointer;
-  transition: all 120ms ease;
+  transition: all var(--transition-fast);
 
   & .material-symbols-rounded {
-    font-size: 1.1rem;
+    font-size: var(--control-icon-size-sm);
   }
 }
 
 .ds-btn:active {
-  transform: translateY(1px);
+  transform: translateY(var(--size-press-offset));
 }
 
 .ds-btn.ds-btn--primary {

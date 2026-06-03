@@ -5,8 +5,8 @@ import type { AppState } from '../../domain/types';
 
 const state: AppState = {
   users: [
-    { id: 'u-admin', nome: 'Admin', email: 'admin@337', passwordHash: 'x', funcao: 'pastor', ministerioPrincipal: 'ministro-louvor', ministeriosSecundarios: [], congregacao: 'SP PM', role: 'admin' },
-    { id: 'u-1', nome: 'Ana', email: 'ana@337', passwordHash: 'x', funcao: 'canta', ministerioPrincipal: 'vocalista', ministeriosSecundarios: [], congregacao: 'SP AM', role: 'membro' }
+    { id: 'u-admin', nome: 'Admin', email: 'admin@example.com', passwordHash: 'x', funcao: 'pastor', ministerioPrincipal: 'ministro-louvor', ministeriosSecundarios: [], congregacao: 'SP PM', role: 'admin' },
+    { id: 'u-1', nome: 'Ana', email: 'ana@example.com', passwordHash: 'x', funcao: 'canta', ministerioPrincipal: 'vocalista', ministeriosSecundarios: [], congregacao: 'SP AM', role: 'membro' }
   ],
   teams: [{ id: 't-1', nome: 'Equipe 1', memberIds: ['u-admin', 'u-1'], roles: [], roleAssignments: [] }],
   scales: [],
@@ -35,9 +35,6 @@ describe('AdminPanel', () => {
         createScale={vi.fn()}
         updateScale={vi.fn()}
         updateScaleAssignment={vi.fn()}
-        addScaleSong={vi.fn()}
-        updateScaleSong={vi.fn()}
-        removeScaleSong={vi.fn()}
         onNavigate={vi.fn()}
       />
     );

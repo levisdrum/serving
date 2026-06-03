@@ -41,7 +41,7 @@ export function AppSidebar({
       <div className="saas-brand">
         <img className="saas-brand__logo" src={churchLogo} alt="Logo da Estação 337" />
         <div>
-          <p className="saas-brand__title">Servin</p>
+          <p className="saas-brand__title">Serving</p>
           <p className="saas-brand__subtitle">Estação 337</p>
         </div>
       </div>

@@ -93,5 +93,9 @@ pnpm dev
 
 - Projeto sem backend e sem autenticação externa.
 - Dados ficam apenas no navegador do usuário (`localStorage`).
+- Não há usuários ou senhas seedadas no bundle público.
+- O primeiro cadastro local inicializa o perfil `master`; cadastros seguintes entram como `membro`.
+- Opcionalmente, o primeiro setup pode importar um token minificado gerado localmente com `pnpm bootstrap:token ./bootstrap-users.local.json`.
+- O arquivo `bootstrap-users.local.json` não deve ser commitado e está coberto por `.gitignore`.
 - Criptografia local existe para reduzir exposição casual, mas não substitui segurança de servidor.
 - Não publicar credenciais reais em documentação.

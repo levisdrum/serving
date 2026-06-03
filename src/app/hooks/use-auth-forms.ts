@@ -5,6 +5,8 @@ export function useAuthForms() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [bootstrapToken, setBootstrapToken] = useState('');
+  const [bootstrapError, setBootstrapError] = useState('');
 
   const [signupName, setSignupName] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
@@ -27,6 +29,8 @@ export function useAuthForms() {
     identifier,
     password,
     loginError,
+    bootstrapToken,
+    bootstrapError,
     signupName,
     signupEmail,
     signupCongregacao,
@@ -37,6 +41,8 @@ export function useAuthForms() {
     setIdentifier,
     setPassword,
     setLoginError,
+    setBootstrapToken,
+    setBootstrapError,
     setSignupName,
     setSignupEmail,
     setSignupCongregacao,

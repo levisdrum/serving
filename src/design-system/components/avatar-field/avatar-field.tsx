@@ -36,9 +36,11 @@ export function AvatarField({ label, value, onChange }: AvatarFieldProps) {
           >
             <Button className="ds-btn ds-btn--neutral" type="button">Escolher arquivo</Button>
           </FileTrigger>
-          <Button className="ds-btn ds-btn--neutral" type="button" onPress={() => onChange('')}>
-            Remover
-          </Button>
+          {hasImage ? (
+            <Button className="ds-btn ds-btn--neutral" type="button" onPress={() => onChange('')}>
+              Remover
+            </Button>
+          ) : null}
         </div>
       </div>
     </div>

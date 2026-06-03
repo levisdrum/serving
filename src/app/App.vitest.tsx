@@ -5,9 +5,16 @@ import { App } from './App';
 
 function loginAsAdmin(container: HTMLElement) {
   const scope = within(container);
-  fireEvent.click(scope.getByRole('button', { name: 'Login' }));
-  fireEvent.change(scope.getByLabelText('Email'), { target: { value: 'master@337' } });
-  fireEvent.change(scope.getByLabelText('Senha'), { target: { value: 'Master337!' } });
+  const email = 'admin.test@example.com';
+  const password = 'test-password';
+
+  fireEvent.click(scope.getByRole('button', { name: 'Novo cadastro' }));
+  fireEvent.change(scope.getByLabelText('Nome'), { target: { value: 'Admin Local' } });
+  fireEvent.change(scope.getByLabelText('Email'), { target: { value: email } });
+  fireEvent.change(scope.getByLabelText('Senha'), { target: { value: password } });
+  fireEvent.click(scope.getByRole('button', { name: 'Criar usuário' }));
+  fireEvent.change(scope.getByLabelText('Email'), { target: { value: email } });
+  fireEvent.change(scope.getByLabelText('Senha'), { target: { value: password } });
   fireEvent.click(scope.getByRole('button', { name: 'Login' }));
 }
 

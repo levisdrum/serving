@@ -94,15 +94,6 @@ export interface ScaleAssignment {
   status: InviteStatus;
 }
 
-export interface EventSong {
-  id: string;
-  titulo: string;
-  tom: string;
-  bpm?: string;
-  link?: string;
-  observacao?: string;
-}
-
 export interface EventScale {
   id: string;
   congregacao: Congregacao;
@@ -110,7 +101,6 @@ export interface EventScale {
   titulo: string;
   dataISO: string;
   assignments: ScaleAssignment[];
-  songs: EventSong[];
   notes: string;
   playlistLink?: string;
 }

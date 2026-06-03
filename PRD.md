@@ -16,14 +16,15 @@ Evoluir o MVP local-first para um fluxo de escala completo para igreja/louvor, s
   - `DatePicker` para data de escala
   - `TagGroup` para seleção múltipla (membros e ministérios secundários)
   - Convite interno com status (`pendente`, `aceito`, `recusado`)
-  - Músicas do evento + sugestões de músicas
+  - Link de playlist do evento + sugestões gerais de músicas
   - Observações do evento + link da playlist
   - Avatar com upload local (`FileTrigger`)
   - Gestão de papel (`admin`/`membro`) e ministério principal na tabela de membros
-  - Campo de senha de apoio visível/ajustável no admin para suporte operacional
-  - Copiar escala para WhatsApp
+  - Campo para redefinir senha no admin/master, sem exibir senha persistida
   - Busca/filtros locais
   - Persistência em `localStorage`
+  - Bootstrap sem credenciais seedadas: primeiro cadastro local inicializa `master`
+  - Importação opcional de token minificado para configuração inicial local
 - Out:
   - SaaS multi-tenant
   - Backend/DB
@@ -37,7 +38,7 @@ Evoluir o MVP local-first para um fluxo de escala completo para igreja/louvor, s
 5. Admin visualiza resumo (KPIs) e próximas escalas.
 6. Membro responde convites e vê detalhe do evento (incluindo playlist).
 7. Edições básicas e filtros locais funcionam sem backend.
-8. Somente o usuário canônico master pode manter papel `master`.
+8. O primeiro cadastro local recebe papel `master`; cadastros seguintes entram como `membro`.
 9. Permissões de exclusão:
    - `master` exclui `admin` e `membro` (exceto a si mesmo)
    - `admin` exclui apenas `membro`
@@ -49,7 +50,7 @@ Evoluir o MVP local-first para um fluxo de escala completo para igreja/louvor, s
 
 ## Critérios de aceite
 1. Fluxo completo: criar escala -> convidar -> aceitar/recusar -> detalhar evento.
-2. Músicas e observações persistem no evento.
+2. Playlist e observações persistem no evento.
 3. Busca/filtros retornam resultados corretos e empty states.
 4. Pipeline de qualidade permanece verde.
 

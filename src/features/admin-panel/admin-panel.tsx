@@ -335,7 +335,7 @@ export function AdminPanel({
         <article className="card">
           <h3>Adicionar Membro</h3>
           <TextField label="Nome" value={nome} onChange={setNome} placeholder="Nome completo" />
-          <TextField label="E-mail" value={email} onChange={setEmail} placeholder="usuario@337" />
+          <TextField label="E-mail" value={email} onChange={setEmail} placeholder="nome@exemplo.com" />
           <TextField label="Senha" value={senha} onChange={setSenha} type="password" placeholder="Digite a senha inicial" />
           <AvatarField
             label="Foto do usuário (opcional)"
@@ -408,6 +408,10 @@ export function AdminPanel({
           <Button
             onPress={() => {
               if (!nome || !email) return;
+              if (senha.trim().length < 3) {
+                showToast("Defina uma senha inicial com no mínimo 3 caracteres.");
+                return;
+              }
               addUser({
                 nome,
                 email,
@@ -415,13 +419,13 @@ export function AdminPanel({
                 funcao,
                 ministerioPrincipal,
                 ministeriosSecundarios: [],
-                password: senha,
+                password: senha.trim(),
                 congregacao: isMaster ? congregacao : currentUser.congregacao,
                 role: "membro",
               });
               setNome("");
               setEmail("");
-              setSenha("Membro337!");
+              setSenha("");
               setFotoUrl("");
               showToast("Membro adicionado com sucesso!");
             }}

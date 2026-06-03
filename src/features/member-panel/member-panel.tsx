@@ -265,12 +265,6 @@ export function MemberPanel({ state, currentUser, respondInvite }: MemberPanelPr
                 ))}
 
                 <div className="member-panel__scale-footer">
-                  {scale.songs.length > 0 && (
-                    <p className="member-panel__scale-info">
-                      <span className="material-symbols-rounded" aria-hidden="true">music_note</span>
-                      {scale.songs.length} música(s)
-                    </p>
-                  )}
                   <button type="button" className="member-panel__ver-mais" onClick={() => setSelectedScaleId(scale.id)}>
                     Ver detalhes
                     <span className="material-symbols-rounded" aria-hidden="true">chevron_right</span>

@@ -1,7 +1,7 @@
 ---
-name: Servin Design System
+name: Serving Design System
 version: 0.1.0
-product: Servin
+product: Serving
 register: product
 tokens:
   colors:
@@ -33,7 +33,7 @@ tokens:
 
 ## 1. Overview
 
-Servin is a local-first scheduling tool for Estacao 337 ministry teams. The interface should feel like an internal church operations product: direct, calm, legible, and fast to use during weekly planning.
+Serving is a local-first scheduling tool for Estacao 337 ministry teams. The interface should feel like an internal church operations product: direct, calm, legible, and fast to use during weekly planning.
 
 The product is not a public SaaS, a marketing site, or a complex analytics dashboard. Prioritize clear forms, readable tables, simple cards, and obvious navigation. Admins need fast control over members, teams, roles, and schedules. Members need quick access to invitations, schedule details, profile data, and playlist links.
 

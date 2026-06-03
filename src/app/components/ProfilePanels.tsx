@@ -38,7 +38,7 @@ export function ProfilePanel(props: ProfilePanelProps) {
       <h2>Editar perfil</h2>
       <AvatarField label="Avatar" value={props.profileFotoUrlDraft} onChange={props.onProfileFotoUrlChange} />
       <TextField label="Nome" value={props.profileNameDraft} onChange={props.onProfileNameChange} placeholder="Seu nome completo" />
-      <TextField label="E-mail" value={props.profileEmailDraft} onChange={props.onProfileEmailChange} type="email" placeholder="voce@337" />
+      <TextField label="E-mail" value={props.profileEmailDraft} onChange={props.onProfileEmailChange} type="email" placeholder="nome@exemplo.com" />
       <Select
         label="Congregação"
         selectedKey={props.profileCongregacaoDraft}

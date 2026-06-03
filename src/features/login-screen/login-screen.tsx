@@ -1,6 +1,7 @@
 import { Button } from "../../design-system/components/button/button";
 import { AvatarField } from "../../design-system/components/avatar-field/avatar-field";
 import { Select } from "../../design-system/components/select/select";
+import { TextArea } from "../../design-system/components/text-area/text-area";
 import { TextField } from "../../design-system/components/text-field/text-field";
 import type { LoginScreenProps } from "./types";
 import "./styles.css";
@@ -29,6 +30,22 @@ export function LoginScreen(props: LoginScreenProps) {
               Novo cadastro
             </Button>
           </div>
+          {props.canImportBootstrap ? (
+            <div className="login-card__bootstrap">
+              <TextArea
+                label="Token de configuração inicial"
+                value={props.bootstrapToken}
+                onChange={props.onBootstrapTokenChange}
+                placeholder="Cole o token minificado"
+              />
+              {props.bootstrapError ? (
+                <p className="login-card__error">{props.bootstrapError}</p>
+              ) : null}
+              <Button tone="neutral" onPress={props.onImportBootstrap}>
+                Importar configuração
+              </Button>
+            </div>
+          ) : null}
         </section>
       </main>
     );
