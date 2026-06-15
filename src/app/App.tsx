@@ -158,13 +158,27 @@ export function App() {
   };
 
   const handleResetPassword = () => {
-    const updated = actions.resetLocalPassword(auth.resetEmail, auth.resetPassword);
-    if (!updated) {
-      auth.setResetFeedback('Não foi possível redefinir. Confira o e-mail e use uma senha com 3+ caracteres.');
+    const resetEmail = auth.resetEmail.trim().toLowerCase();
+    const resetPassword = auth.resetPassword.trim();
+
+    if (!resetEmail || resetPassword.length < 3) {
+      auth.setResetFeedback('Digite o e-mail cadastrado e uma nova senha com 3+ caracteres.');
       return;
     }
 
-    auth.setIdentifier(auth.resetEmail.trim().toLowerCase());
+    const userExists = state.users.some((user) => user.email.toLowerCase() === resetEmail);
+    if (!userExists) {
+      auth.setResetFeedback('Não encontrei esse e-mail neste navegador. Confira o cadastro local ou crie um novo cadastro.');
+      return;
+    }
+
+    const updated = actions.resetLocalPassword(resetEmail, resetPassword);
+    if (!updated) {
+      auth.setResetFeedback('Não foi possível redefinir a senha local agora.');
+      return;
+    }
+
+    auth.setIdentifier(resetEmail);
     auth.setPassword('');
     auth.setResetEmail('');
     auth.setResetPassword('');
