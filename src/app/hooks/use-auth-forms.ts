@@ -5,6 +5,9 @@ export function useAuthForms() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetPassword, setResetPassword] = useState('');
+  const [resetFeedback, setResetFeedback] = useState('');
   const [bootstrapToken, setBootstrapToken] = useState('');
   const [bootstrapError, setBootstrapError] = useState('');
 
@@ -29,6 +32,9 @@ export function useAuthForms() {
     identifier,
     password,
     loginError,
+    resetEmail,
+    resetPassword,
+    resetFeedback,
     bootstrapToken,
     bootstrapError,
     signupName,
@@ -41,6 +47,9 @@ export function useAuthForms() {
     setIdentifier,
     setPassword,
     setLoginError,
+    setResetEmail,
+    setResetPassword,
+    setResetFeedback,
     setBootstrapToken,
     setBootstrapError,
     setSignupName,

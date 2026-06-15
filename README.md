@@ -73,6 +73,7 @@ pnpm dev
 ## Fluxos principais
 
 - Login e novo cadastro (local)
+- Redefinição local de senha pelo fluxo `Esqueci minha senha`
 - Painel Admin:
   - membros, equipes, funções, escalas e detalhe da escala
 - Visão Membro:
@@ -93,6 +94,7 @@ pnpm dev
 
 - Projeto sem backend e sem autenticação externa.
 - Dados ficam apenas no navegador do usuário (`localStorage`).
+- O fluxo `Esqueci minha senha` redefine apenas a senha salva neste navegador.
 - Não há usuários ou senhas seedadas no bundle público.
 - O primeiro cadastro local inicializa o perfil `master`; cadastros seguintes entram como `membro`.
 - Opcionalmente, o primeiro setup pode importar um token minificado gerado localmente com `pnpm bootstrap:token ./bootstrap-users.local.json`.
