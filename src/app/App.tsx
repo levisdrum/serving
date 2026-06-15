@@ -35,6 +35,7 @@ export function App() {
   const authView = useMemo<AuthView>(() => {
     if (currentPath === '/login') return 'login';
     if (currentPath === '/cadastro') return 'signup';
+    if (currentPath === '/esqueci-senha') return 'forgot';
     return 'home';
   }, [currentPath]);
   const auth = useAuthForms();
@@ -156,6 +157,21 @@ export function App() {
     navigateTo('/login');
   };
 
+  const handleResetPassword = () => {
+    const updated = actions.resetLocalPassword(auth.resetEmail, auth.resetPassword);
+    if (!updated) {
+      auth.setResetFeedback('Não foi possível redefinir. Confira o e-mail e use uma senha com 3+ caracteres.');
+      return;
+    }
+
+    auth.setIdentifier(auth.resetEmail.trim().toLowerCase());
+    auth.setPassword('');
+    auth.setResetEmail('');
+    auth.setResetPassword('');
+    auth.setResetFeedback('Senha redefinida neste navegador. Faça login com a nova senha.');
+    navigateTo('/login');
+  };
+
   const openEditProfile = () => {
     if (!currentUser) return;
     profile.loadFromUser(currentUser);
@@ -201,6 +217,9 @@ export function App() {
         identifier={auth.identifier}
         password={auth.password}
         loginError={auth.loginError}
+        resetEmail={auth.resetEmail}
+        resetPassword={auth.resetPassword}
+        resetFeedback={auth.resetFeedback}
         bootstrapToken={auth.bootstrapToken}
         bootstrapError={auth.bootstrapError}
         canImportBootstrap={state.users.length === 0}
@@ -214,6 +233,9 @@ export function App() {
         onIdentifierChange={auth.setIdentifier}
         onPasswordChange={auth.setPassword}
         onLogin={handleLogin}
+        onResetEmailChange={auth.setResetEmail}
+        onResetPasswordChange={auth.setResetPassword}
+        onResetPassword={handleResetPassword}
         onBootstrapTokenChange={auth.setBootstrapToken}
         onImportBootstrap={handleImportBootstrap}
         onShowHome={() => {
@@ -223,11 +245,17 @@ export function App() {
         }}
         onShowLogin={() => {
           auth.setLoginError('');
+          auth.setResetFeedback('');
           navigateTo('/login');
         }}
         onShowSignup={() => {
           auth.setSignupError('');
           navigateTo('/cadastro');
+        }}
+        onShowForgotPassword={() => {
+          auth.setLoginError('');
+          auth.setResetFeedback('');
+          navigateTo('/esqueci-senha');
         }}
         onSignupNameChange={auth.setSignupName}
         onSignupEmailChange={auth.setSignupEmail}

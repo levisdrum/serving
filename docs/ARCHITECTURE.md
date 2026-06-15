@@ -42,6 +42,7 @@ Aplicação `React + TypeScript + Vite`, local-first, com persistência em `loca
   - `DatePicker` para data de escala
   - `TagGroup` para múltiplos ministérios e membros escalados
   - `FileTrigger` para avatar
+- Redefinição de senha é local e atualiza apenas o `passwordHash` do usuário no navegador atual.
 
 ## Limitações vigentes
 - Sem backend e sem sincronização entre dispositivos.

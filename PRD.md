@@ -9,6 +9,7 @@ Evoluir o MVP local-first para um fluxo de escala completo para igreja/louvor, s
 ## Escopo v1 atualizado
 - In:
   - Autenticação local simples (sem backend)
+  - Redefinição local de senha, sem e-mail e sem backend
   - Perfis de acesso `master`, `admin` (por congregação) e `membro`
   - Cadastro e edição de membros/equipes/funções
   - Funções por equipe e vínculo membro-função (cadastro operacional)
@@ -37,9 +38,10 @@ Evoluir o MVP local-first para um fluxo de escala completo para igreja/louvor, s
 4. Admin cria escala com data, membros, observações e playlist.
 5. Admin visualiza resumo (KPIs) e próximas escalas.
 6. Membro responde convites e vê detalhe do evento (incluindo playlist).
-7. Edições básicas e filtros locais funcionam sem backend.
-8. O primeiro cadastro local recebe papel `master`; cadastros seguintes entram como `membro`.
-9. Permissões de exclusão:
+7. Usuário consegue redefinir senha local informando e-mail cadastrado e nova senha.
+8. Edições básicas e filtros locais funcionam sem backend.
+9. O primeiro cadastro local recebe papel `master`; cadastros seguintes entram como `membro`.
+10. Permissões de exclusão:
    - `master` exclui `admin` e `membro` (exceto a si mesmo)
    - `admin` exclui apenas `membro`
 

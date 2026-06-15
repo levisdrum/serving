@@ -65,10 +65,13 @@ export function LoginScreen(props: LoginScreenProps) {
             alt="Logo da Estação 337"
           />
           {props.authView === "signup" ? <h1>Novo cadastro</h1> : null}
+          {props.authView === "forgot" ? <h1>Esqueci minha senha</h1> : null}
         </div>
         <p className="login-card__subtitle">
           {props.authView === "signup"
             ? "Crie seu perfil para participar das escalas da Estação 337."
+            : props.authView === "forgot"
+              ? "Redefina uma senha salva neste navegador."
             : "Use seu e-mail para acessar sua área de escala."}
         </p>
         {props.authView === "signup" ? (
@@ -142,6 +145,29 @@ export function LoginScreen(props: LoginScreenProps) {
             ) : null}
             <Button onPress={props.onSignup}>Criar usuário</Button>
           </>
+        ) : props.authView === "forgot" ? (
+          <>
+            <TextField
+              label="Email"
+              value={props.resetEmail}
+              onChange={props.onResetEmailChange}
+              type="email"
+              placeholder="Digite seu e-mail cadastrado"
+              name="email"
+            />
+            <TextField
+              label="Nova senha"
+              value={props.resetPassword}
+              onChange={props.onResetPasswordChange}
+              type="password"
+              placeholder="Digite a nova senha"
+              name="new-password"
+            />
+            {props.resetFeedback ? (
+              <p className="login-card__error">{props.resetFeedback}</p>
+            ) : null}
+            <Button onPress={props.onResetPassword}>Redefinir senha</Button>
+          </>
         ) : (
           <>
             <TextField
@@ -163,7 +189,13 @@ export function LoginScreen(props: LoginScreenProps) {
             {props.loginError ? (
               <p className="login-card__error">{props.loginError}</p>
             ) : null}
+            {props.resetFeedback ? (
+              <p className="login-card__success">{props.resetFeedback}</p>
+            ) : null}
             <Button onPress={props.onLogin}>Login</Button>
+            <Button className="login-card__link" tone="neutral" onPress={props.onShowForgotPassword}>
+              Esqueci minha senha
+            </Button>
           </>
         )}
         <Button className="login-card__link" tone="neutral" onPress={props.onShowHome}>

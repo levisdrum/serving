@@ -158,3 +158,8 @@
   color: var(--color-danger-ink);
   font-size: var(--font-size-md);
 }
+
+.login-card .login-card__success {
+  color: var(--color-success);
+  font-size: var(--font-size-md);
+}

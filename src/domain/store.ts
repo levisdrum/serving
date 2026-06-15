@@ -273,6 +273,27 @@ export function useAppStore() {
         persist(next);
         return true;
       },
+      resetLocalPassword(email: string, password: string) {
+        const normalizedEmail = email.trim().toLowerCase();
+        const safePassword = password.trim();
+        if (!normalizedEmail || safePassword.length < 3) return false;
+
+        let updated = false;
+        commit((prev) => {
+          const users = prev.users.map((user) => {
+            if (user.email.toLowerCase() !== normalizedEmail) return user;
+            updated = true;
+            return {
+              ...user,
+              passwordHash: hashPassword(safePassword)
+            };
+          });
+
+          return { ...prev, users };
+        });
+
+        return updated;
+      },
       updateUser(
         userId: string,
         patch: {
