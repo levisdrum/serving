@@ -278,21 +278,18 @@ export function useAppStore() {
         const safePassword = password.trim();
         if (!normalizedEmail || safePassword.length < 3) return false;
 
-        let updated = false;
-        commit((prev) => {
-          const users = prev.users.map((user) => {
-            if (user.email.toLowerCase() !== normalizedEmail) return user;
-            updated = true;
-            return {
-              ...user,
-              passwordHash: hashPassword(safePassword)
-            };
-          });
+        const hasUser = state.users.some((user) => user.email.toLowerCase() === normalizedEmail);
+        if (!hasUser) return false;
 
-          return { ...prev, users };
+        persist({
+          ...state,
+          users: state.users.map((user) => {
+            if (user.email.toLowerCase() !== normalizedEmail) return user;
+            return { ...user, passwordHash: hashPassword(safePassword) };
+          })
         });
 
-        return updated;
+        return true;
       },
       updateUser(
         userId: string,
