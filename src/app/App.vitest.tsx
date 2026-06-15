@@ -82,4 +82,20 @@ describe('App', () => {
 
     expect(scope.getByRole('button', { name: 'Menu do perfil' })).toBeInTheDocument();
   });
+
+  it('informa quando o e-mail de redefinição não existe no navegador', () => {
+    localStorage.clear();
+    const view = render(
+      <MemoryRouter initialEntries={['/esqueci-senha']}>
+        <App />
+      </MemoryRouter>
+    );
+    const scope = within(view.container);
+
+    fireEvent.change(scope.getByLabelText('Email'), { target: { value: 'levisfront@gmail.com' } });
+    fireEvent.change(scope.getByLabelText('Nova senha'), { target: { value: '3503Alves@' } });
+    fireEvent.click(scope.getByRole('button', { name: 'Redefinir senha' }));
+
+    expect(scope.getByText('Não encontrei esse e-mail neste navegador. Confira o cadastro local ou crie um novo cadastro.')).toBeInTheDocument();
+  });
 });
