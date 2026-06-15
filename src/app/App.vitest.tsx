@@ -55,4 +55,31 @@ describe('App', () => {
     expect(screen.getByRole('menuitem', { name: 'Sair', hidden: true })).toBeInTheDocument();
     expect(screen.queryByRole('menuitem', { name: 'Configurações', hidden: true })).not.toBeInTheDocument();
   });
+
+  it('permite redefinir senha local e logar com a nova senha', () => {
+    localStorage.clear();
+    const view = render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    );
+    const scope = within(view.container);
+    const email = 'reset.test@example.com';
+
+    fireEvent.click(scope.getByRole('button', { name: 'Novo cadastro' }));
+    fireEvent.change(scope.getByLabelText('Nome'), { target: { value: 'Reset Local' } });
+    fireEvent.change(scope.getByLabelText('Email'), { target: { value: email } });
+    fireEvent.change(scope.getByLabelText('Senha'), { target: { value: 'senha-antiga' } });
+    fireEvent.click(scope.getByRole('button', { name: 'Criar usuário' }));
+
+    fireEvent.click(scope.getByRole('button', { name: 'Esqueci minha senha' }));
+    fireEvent.change(scope.getByLabelText('Email'), { target: { value: email } });
+    fireEvent.change(scope.getByLabelText('Nova senha'), { target: { value: 'senha-nova' } });
+    fireEvent.click(scope.getByRole('button', { name: 'Redefinir senha' }));
+
+    fireEvent.change(scope.getByLabelText('Senha'), { target: { value: 'senha-nova' } });
+    fireEvent.click(scope.getByRole('button', { name: 'Login' }));
+
+    expect(scope.getByRole('button', { name: 'Menu do perfil' })).toBeInTheDocument();
+  });
 });
